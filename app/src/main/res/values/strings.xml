@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SecureApp</string>
+    <string name="login">Login</string>
+    <string name="username_hint">Benutzername</string>
+    <string name="password_hint">Passwort</string>
+    <string name="welcome_message">Willkommen in der sicheren App!</string>
+</resources>
