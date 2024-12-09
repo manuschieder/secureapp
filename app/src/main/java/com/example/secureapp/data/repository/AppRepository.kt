@@ -1,3 +1,5 @@
+import com.example.secureapp.data.remote.LoginResponse
+
 class AppRepository(
     private val apiService: ApiService,
     private val userPreferencesDao: UserPreferencesDao
@@ -14,3 +16,4 @@ class AppRepository(
         return userPreferencesDao.getPreferences(0)
     }
 }
+

@@ -1,13 +1,9 @@
-import okhttp3.Response
+package com.example.secureapp.data.remote
+
 import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
     @POST("auth/login")
-    suspend fun login(@Body loginRequest: Map<String, String>): Response<LoginResponse>
-
-    @GET("user/data")
-    suspend fun getUserData(@Header("Authorization") token: String): Response<UserData>
+    suspend fun login(@Body loginRequest: Map<String, String>): LoginResponse
 }

@@ -49,6 +49,8 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.4")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
     implementation("androidx.room:room-ktx:2.6.1")
+    implementation("com.auth0.android:auth0:2.8.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
 }
 

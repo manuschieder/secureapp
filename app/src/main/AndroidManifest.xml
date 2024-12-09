@@ -11,6 +11,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Secureapp"
-        tools:targetApi="31" />
+        tools:targetApi="31">
+
+        <!-- Auth0 Redirect Activity -->
+        <activity android:name="com.auth0.android.provider.RedirectActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="demo" android:host="dev-hl22whbugwmmvwan.us.auth0.com" />
+            </intent-filter>
+        </activity>
+
+        <!-- LoginActivity -->
+        <activity android:name=".ui.login.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- HomeActivity -->
+        <activity android:name=".ui.home.HomeActivity" />
+
+    </application>
 
 </manifest>
