@@ -1,18 +1,34 @@
-// Projektweite Gradle-Build-Datei
 plugins {
-    alias(libs.plugins.android.application) apply false // Android Application Plugin
-    alias(libs.plugins.kotlin.android) apply false // Kotlin Plugin
-    alias(libs.plugins.hilt) apply false // Hilt Plugin (falls verwendet)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
 }
 
-allprojects {
-    repositories {
-        google() // Google Repository
-        mavenCentral() // Maven Central Repository
+android {
+    namespace = "com.example.secureapp"
+    compileSdk = 33
+
+    defaultConfig {
+        applicationId = "com.example.secureapp"
+        minSdk = 21
+        targetSdk = 33
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
     }
 }
 
-// Task, um das Projekt zu bereinigen
-tasks.register<Delete>("clean") {
-    delete(rootProject.buildDir)
+dependencies {
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.hilt_android)
+    kapt(libs.hilt_compiler)
+    implementation(libs.room_runtime)
+    kapt(libs.room_compiler)
 }

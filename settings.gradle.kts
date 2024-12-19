@@ -12,11 +12,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
-    versionCatalogs {
-        create("libs") {
-            from(files("gradle/libs.versions.toml")) // Stelle sicher, dass dies der einzige Aufruf von `from()` ist
-        }
-    }
 }
 
 rootProject.name = "secureapp"

@@ -1,12 +1,19 @@
-[plugins]
-android.application = { id = "com.android.application", version = "8.1.1" }
-kotlin.android = { id = "org.jetbrains.kotlin.android", version = "1.9.10" }
-hilt = { id = "com.google.dagger.hilt.android", version = "2.46" }
+[versions]
+kotlin = "1.9.10"
+hilt = "2.46"
+retrofit = "2.9.0"
+okhttp = "4.9.3"
+room = "2.6.1"
 
 [libraries]
-    hilt.android = { group = "com.google.dagger", name = "hilt-android", version = "2.46" }
-hilt.compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version = "2.46" }
-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version = "2.9.0" }
-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version = "4.9.3" }
-room.runtime = { group = "androidx.room", name = "room-runtime", version = "2.6.1" }
-room.compiler = { group = "androidx.room", name = "room-compiler", version = "2.6.1" }
+hilt_android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt_compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+room_runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room_compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+[plugins]
+android_application = { id = "com.android.application", version = "8.1.1" }
+kotlin_android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
