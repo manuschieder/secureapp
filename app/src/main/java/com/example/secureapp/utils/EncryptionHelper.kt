@@ -1,23 +1,25 @@
-import javax.crypto.Cipher
-import javax.crypto.SecretKey
-import javax.crypto.spec.GCMParameterSpec
-import kotlin.io.encoding.Base64
+package com.example.secureapp.utils
+
+import java.security.SecureRandom
+import javax.crypto.SecretKeyFactory
+import javax.crypto.spec.PBEKeySpec
 
 object EncryptionHelper {
-    fun encrypt(data: String, key: SecretKey): String {
-        val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        cipher.init(Cipher.ENCRYPT_MODE, key)
-        val iv = cipher.iv
-        val encrypted = cipher.doFinal(data.toByteArray())
-        return Base64.encodeToString(iv + encrypted, Base64.DEFAULT)
+
+    private const val SALT_LENGTH = 16
+    private const val ITERATION_COUNT = 65536
+    private const val KEY_LENGTH = 256
+
+    fun generateSalt(): ByteArray {
+        val salt = ByteArray(SALT_LENGTH)
+        SecureRandom().nextBytes(salt)
+        return salt
     }
 
-    fun decrypt(encryptedData: String, key: SecretKey): String {
-        val decoded = Base64.decode(encryptedData, Base64.DEFAULT)
-        val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        val iv = decoded.sliceArray(0 until 12)
-        val encrypted = decoded.sliceArray(12 until decoded.size)
-        cipher.init(Cipher.DECRYPT_MODE, key, GCMParameterSpec(128, iv))
-        return String(cipher.doFinal(encrypted))
+    fun deriveKeyFromPassword(password: String, salt: ByteArray): String {
+        val spec = PBEKeySpec(password.toCharArray(), salt, ITERATION_COUNT, KEY_LENGTH)
+        val factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256")
+        val key = factory.generateSecret(spec).encoded
+        return String(key) // Rückgabe als String
     }
 }

@@ -1,19 +1,31 @@
-import com.example.secureapp.data.remote.LoginResponse
+package com.example.secureapp.data
 
-class AppRepository(
-    private val apiService: ApiService,
-    private val userPreferencesDao: UserPreferencesDao
+import com.example.secureapp.data.local.AppDatabase
+import com.example.secureapp.data.local.UserPreferences
+import com.example.secureapp.data.remote.ApiService
+import javax.inject.Inject
+
+class AppRepository @Inject constructor(
+    private val database: AppDatabase,
+    private val apiService: ApiService // Retrofit-Service für die API-Kommunikation
 ) {
-    suspend fun login(username: String, password: String): LoginResponse {
-        return apiService.login(mapOf("username" to username, "password" to password))
+
+    // Login-Methode für die API
+    suspend fun login(username: String, password: String): Boolean {
+        val response = apiService.login(mapOf("username" to username, "password" to password))
+        return response.isSuccessful // Rückmeldung, ob der Login erfolgreich war
     }
 
-    suspend fun saveUserPreferences(preferences: UserPreferences) {
-        userPreferencesDao.savePreferences(preferences)
+    // Lokale Datenbankoperationen
+    suspend fun savePreferences(preferences: UserPreferences) {
+        database.userPreferencesDao().savePreferences(preferences)
     }
 
-    suspend fun getUserPreferences(): UserPreferences? {
-        return userPreferencesDao.getPreferences(0)
+    suspend fun getPreferences(id: Int): UserPreferences? {
+        return database.userPreferencesDao().getPreferences(id)
+    }
+
+    suspend fun deletePreferences(preferences: UserPreferences) {
+        database.userPreferencesDao().deletePreferences(preferences)
     }
 }
-
